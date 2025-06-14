@@ -32,7 +32,7 @@ const MainLayout = () => {
           height: '64px',
         }}
       >
-        {/* Logo and Title Container - Perfectly Aligned */}
+        {/* Logo and Title Container */}
         <div style={{ 
           display: 'flex', 
           alignItems: 'center',
