@@ -1,4 +1,5 @@
-import {
+import React, { useState, useEffect } from "react";
+import { 
   Col,
   Row,
   Typography,
@@ -30,20 +31,15 @@ import {
   SoundOutlined,
   PictureOutlined
 } from '@ant-design/icons';
-import { useState, useEffect } from "react";
 import { getData, sendData, deleteData } from "/src/utils/api";
+import "./theme.css";
+import "./playlist.css";
 
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
 
-// Color Palette
-const colors = {
-  cream: '#F8E0B2',
-  brown: '#8B4513',
-  lightBrown: 'rgba(139, 69, 19, 0.1)'
-};
-
 const Playlist = () => {
+  // State management
   const [dataSources, setDataSources] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -54,6 +50,7 @@ const Playlist = () => {
   const [api, contextHolder] = notification.useNotification();
   const [activeFilter, setActiveFilter] = useState('all');
 
+  // Constants
   const genreOptions = [
     { value: 'music', label: 'Music', icon: <SoundOutlined /> },
     { value: 'song', label: 'Song', icon: <PlayCircleOutlined /> },
@@ -62,15 +59,7 @@ const Playlist = () => {
     { value: 'others', label: 'Others', icon: <HeartOutlined /> }
   ];
 
-  const showAlert = (type, title, description) => {
-    api[type]({
-      message: title,
-      description: description,
-      placement: 'topRight',
-      duration: 3
-    });
-  };
-
+  // API calls
   useEffect(() => {
     getPlaylistData();
   }, []);
@@ -91,6 +80,16 @@ const Playlist = () => {
   };
 
   const [form] = Form.useForm();
+
+  // Handler functions
+  const showAlert = (type, title, description) => {
+    api[type]({
+      message: title,
+      description: description,
+      placement: 'topRight',
+      duration: 3
+    });
+  };
 
   const onCloseDrawer = () => {
     setIsOpenDrawer(false);
@@ -177,6 +176,7 @@ const Playlist = () => {
     setSearchText(search.toLowerCase());
   };
 
+  // Data processing
   const dataSourceFiltered = dataSources.filter((item) => {
     if (!searchText) return true;
     return (
@@ -199,22 +199,14 @@ const Playlist = () => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
+  // Component rendering
   const renderStatsCard = () => {
     const totalPlaylists = dataSources.length;
 
     return (
-      <Card
-        style={{
-          background: `linear-gradient(135deg, ${colors.cream} 0%, ${colors.lightBrown} 100%)`,
-          borderRadius: '12px',
-          padding: '20px',
-          border: `1px solid ${colors.brown}`,
-          textAlign: 'center',
-          marginBottom: '24px'
-        }}
-      >
-        <Text strong style={{ color: colors.brown, fontSize: '16px' }}>TOTAL PLAYLISTS</Text>
-        <Title level={2} style={{ color: colors.brown, margin: '8px 0', fontSize: '36px' }}>
+      <Card className="stats-card">
+        <Text strong className="text-brown" style={{ fontSize: '16px' }}>TOTAL PLAYLISTS</Text>
+        <Title level={2} className="text-brown" style={{ margin: '8px 0', fontSize: '36px' }}>
           {totalPlaylists}
         </Title>
         <Button 
@@ -222,8 +214,8 @@ const Playlist = () => {
           icon={<PlusOutlined />}
           onClick={handleDrawer}
           style={{ 
-            background: colors.brown,
-            borderColor: colors.brown
+            background: 'var(--brown)',
+            borderColor: 'var(--brown)'
           }}
         >
           New Playlist
@@ -236,32 +228,23 @@ const Playlist = () => {
     <Drawer
       width={500}
       title={
-        <div style={{ color: colors.brown }}>
+        <div className="text-brown">
           {isEdit ? "✏️ Edit Playlist" : "🎵 Add New Playlist"}
         </div>
       }
       onClose={onCloseDrawer}
       open={isOpenDrawer}
       destroyOnClose
-      styles={{
-        header: { 
-          borderBottom: `2px solid ${colors.brown}`,
-          background: colors.cream
-        },
-        body: { 
-          background: colors.cream,
-          padding: '24px'
-        },
-      }}
+      className="playlist-drawer"
       extra={
         <Space>
           <Button 
             onClick={onCloseDrawer} 
             disabled={submitLoading}
             style={{
-              borderColor: colors.brown,
-              color: colors.brown,
-              background: colors.cream
+              borderColor: 'var(--brown)',
+              color: 'var(--brown)',
+              background: 'var(--cream)'
             }}
           >
             Cancel
@@ -271,9 +254,9 @@ const Playlist = () => {
             onClick={handleSubmit}
             loading={submitLoading}
             style={{ 
-              background: colors.brown, 
-              borderColor: colors.brown,
-              borderRadius: '8px'
+              background: 'var(--brown)', 
+              borderColor: 'var(--brown)',
+              borderRadius: 'var(--border-radius-md)'
             }}
           >
             {isEdit ? "💾 Update" : "🚀 Create"}
@@ -281,86 +264,70 @@ const Playlist = () => {
         </Space>
       }
     >
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" className="playlist-form">
         <Form.Item
-          label={<span style={{ color: colors.brown }}>Playlist Name</span>}
+          label={<span className="text-brown">Playlist Name</span>}
           name="play_name"
           rules={[
             { required: true, message: "Please input playlist name!" },
             { min: 2, message: "Name must be at least 2 characters!" }
           ]}
+          className="playlist-form-item"
         >
           <Input 
             placeholder="Enter playlist name" 
-            prefix={<CustomerServiceOutlined style={{ color: colors.brown }} />}
-            style={{ 
-              borderRadius: '8px', 
-              background: colors.cream,
-              border: `1px solid ${colors.brown}`
-            }}
+            prefix={<CustomerServiceOutlined className="text-brown" />}
           />
         </Form.Item>
 
         <Form.Item
-          label={<span style={{ color: colors.brown }}>URL</span>}
+          label={<span className="text-brown">URL</span>}
           name="play_url"
           rules={[
             { required: true, message: "Please input playlist URL!" },
             { type: 'url', message: "Please enter a valid URL!" }
           ]}
+          className="playlist-form-item"
         >
           <Input 
             placeholder="Enter URL (e.g., https://youtu.be/...)" 
-            prefix={<YoutubeOutlined style={{ color: colors.brown }} />}
-            style={{ 
-              borderRadius: '8px', 
-              background: colors.cream,
-              border: `1px solid ${colors.brown}`
-            }}
+            prefix={<YoutubeOutlined className="text-brown" />}
           />
         </Form.Item>
 
         <Form.Item
-          label={<span style={{ color: colors.brown }}>Thumbnail URL</span>}
+          label={<span className="text-brown">Thumbnail URL</span>}
           name="play_thumbnail"
           rules={[
             { required: true, message: "Please input thumbnail URL!" },
             { type: 'url', message: "Please enter a valid URL!" }
           ]}
+          className="playlist-form-item"
         >
           <Input 
             placeholder="Enter image URL (e.g., https://img.youtube.com/...)" 
-            prefix={<PictureOutlined style={{ color: colors.brown }} />}
-            style={{ 
-              borderRadius: '8px', 
-              background: colors.cream,
-              border: `1px solid ${colors.brown}`
-            }}
+            prefix={<PictureOutlined className="text-brown" />}
           />
         </Form.Item>
 
         <Form.Item
-          label={<span style={{ color: colors.brown }}>Genre</span>}
+          label={<span className="text-brown">Genre</span>}
           name="play_genre"
           rules={[{ required: true, message: "Please select genre!" }]}
+          className="playlist-form-item"
         >
           <Select
             placeholder="Select genre"
-            style={{ 
-              borderRadius: '8px', 
-              background: colors.cream,
-              border: `1px solid ${colors.brown}`
-            }}
             dropdownStyle={{
-              background: colors.cream,
-              border: `1px solid ${colors.brown}`
+              background: 'var(--cream)',
+              border: '1px solid var(--brown)'
             }}
           >
             {genreOptions.map(option => (
               <Option 
                 key={option.value} 
                 value={option.value}
-                style={{ background: colors.cream }}
+                style={{ background: 'var(--cream)' }}
               >
                 {option.icon} {option.label}
               </Option>
@@ -369,17 +336,13 @@ const Playlist = () => {
         </Form.Item>
 
         <Form.Item
-          label={<span style={{ color: colors.brown }}>Description (Optional)</span>}
+          label={<span className="text-brown">Description (Optional)</span>}
           name="play_description"
+          className="playlist-form-item"
         >
           <Input.TextArea 
             rows={4} 
             placeholder="Enter description (optional)" 
-            style={{ 
-              borderRadius: '8px', 
-              background: colors.cream,
-              border: `1px solid ${colors.brown}`
-            }}
           />
         </Form.Item>
       </Form>
@@ -387,39 +350,16 @@ const Playlist = () => {
   );
 
   return (
-    <div style={{ 
-      background: colors.cream, 
-      minHeight: '100vh',
-      padding: '24px'
-    }}>
+    <div className="bg-cream" style={{ minHeight: '100vh', padding: 'var(--space-lg)' }}>
       {contextHolder}
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div className="playlist-container">
         
         {/* Header */}
-        <div style={{ 
-          textAlign: 'center',
-          marginBottom: '32px',
-          padding: '32px',
-          background: `linear-gradient(135deg, ${colors.cream} 0%, ${colors.lightBrown} 100%)`,
-          borderRadius: '16px',
-          border: `1px solid ${colors.brown}`
-        }}>
-          <Title 
-            level={1} 
-            style={{ 
-              color: colors.brown, 
-              margin: 0,
-              fontSize: '2.5rem',
-              fontWeight: 'bold'
-            }}
-          >
+        <div className="playlist-header">
+          <Title level={1} className="playlist-title">
             ⭐ Playlist Manager
           </Title>
-          <Paragraph style={{ 
-            color: colors.brown, 
-            fontSize: '1.1rem',
-            margin: '12px 0 24px 0'
-          }}>
+          <Paragraph className="playlist-subtitle">
             Manage and enjoy your favorite content in one place
           </Paragraph>
         </div>
@@ -428,18 +368,13 @@ const Playlist = () => {
         {renderStatsCard()}
 
         {/* Filters */}
-        <Card style={{ 
-          marginBottom: '24px',
-          borderRadius: '12px',
-          background: colors.cream,
-          border: `1px solid ${colors.brown}`
-        }}>
+        <Card className="filter-card">
           <Row gutter={[16, 16]} align="middle">
             <Col xs={24} md={12}>
               <Text strong style={{ 
                 display: 'block', 
-                marginBottom: '12px', 
-                color: colors.brown,
+                marginBottom: 'var(--space-md)', 
+                color: 'var(--brown)',
                 fontSize: '16px'
               }}>
                 Filter by Genre
@@ -447,15 +382,7 @@ const Playlist = () => {
               <Space wrap>
                 <Tag 
                   onClick={() => setActiveFilter('all')}
-                  style={{ 
-                    cursor: 'pointer',
-                    padding: '8px 16px',
-                    borderRadius: '20px',
-                    background: activeFilter === 'all' ? colors.brown : colors.cream,
-                    color: activeFilter === 'all' ? colors.cream : colors.brown,
-                    border: `1px solid ${colors.brown}`,
-                    fontWeight: 'bold'
-                  }}
+                  className={`filter-tag ${activeFilter === 'all' ? 'active' : ''}`}
                 >
                   🌟 All ({dataSources.length})
                 </Tag>
@@ -465,15 +392,7 @@ const Playlist = () => {
                     <Tag
                       key={option.value}
                       onClick={() => setActiveFilter(option.value)}
-                      style={{ 
-                        cursor: 'pointer',
-                        padding: '8px 16px',
-                        borderRadius: '20px',
-                        background: activeFilter === option.value ? colors.brown : colors.cream,
-                        color: activeFilter === option.value ? colors.cream : colors.brown,
-                        border: `1px solid ${colors.brown}`,
-                        fontWeight: 'bold'
-                      }}
+                      className={`filter-tag ${activeFilter === option.value ? 'active' : ''}`}
                     >
                       {option.icon} {option.label} ({count})
                     </Tag>
@@ -484,23 +403,19 @@ const Playlist = () => {
             <Col xs={24} md={12}>
               <Text strong style={{ 
                 display: 'block', 
-                marginBottom: '12px', 
-                color: colors.brown,
+                marginBottom: 'var(--space-md)', 
+                color: 'var(--brown)',
                 fontSize: '16px'
               }}>
                 <SearchOutlined /> Search
               </Text>
               <Input
-                prefix={<SearchOutlined style={{ color: colors.brown }} />}
+                prefix={<SearchOutlined className="text-brown" />}
                 placeholder="Search playlists, genres, or descriptions..."
                 allowClear
                 size="large"
                 onChange={(e) => handleSearch(e.target.value)}
-                style={{ 
-                  borderRadius: '12px',
-                  border: `1px solid ${colors.brown}`,
-                  background: colors.cream
-                }}
+                className="rounded-lg border-brown bg-cream"
               />
             </Col>
           </Row>
@@ -508,28 +423,18 @@ const Playlist = () => {
 
         {/* Content Grid */}
         {isLoading ? (
-          <Card style={{ 
-            borderRadius: '12px', 
-            background: colors.cream,
-            border: `1px solid ${colors.brown}`
-          }}>
+          <Card className="rounded-lg border-brown bg-cream">
             <Skeleton active paragraph={{ rows: 8 }} />
           </Card>
         ) : filteredPlaylists.length === 0 ? (
-          <Card style={{ 
-            borderRadius: '12px',
-            textAlign: 'center',
-            padding: '40px',
-            background: colors.cream,
-            border: `1px solid ${colors.brown}`
-          }}>
+          <Card className="empty-state">
             <Empty
               description={
                 <div>
-                  <Title level={3} style={{ color: colors.brown }}>
+                  <Title level={3} className="text-brown">
                     {searchText ? "🔍 No results found" : "📝 No playlists yet"}
                   </Title>
-                  <Text style={{ color: colors.brown, fontSize: '16px' }}>
+                  <Text className="text-brown" style={{ fontSize: '16px' }}>
                     {searchText 
                       ? `No playlists found matching "${searchText}"`
                       : "Create your first playlist to manage your favorite media"
@@ -544,10 +449,10 @@ const Playlist = () => {
                 size="large"
                 icon={<PlusOutlined />}
                 onClick={handleDrawer}
+                className="bg-brown"
                 style={{ 
-                  background: colors.brown,
-                  borderRadius: '8px',
-                  marginTop: '16px'
+                  borderRadius: 'var(--border-radius-md)',
+                  marginTop: 'var(--space-md)'
                 }}
               >
                 Create First Playlist
@@ -562,28 +467,13 @@ const Playlist = () => {
                 <Col xs={24} sm={12} lg={8} xl={6} key={item.id_play}>
                   <Card
                     hoverable
-                    style={{ 
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      background: colors.cream,
-                      border: `1px solid ${colors.brown}`,
-                      transition: 'all 0.3s ease',
-                      height: '100%'
-                    }}
+                    className="playlist-card"
                     cover={
-                      <div style={{ 
-                        position: 'relative',
-                        overflow: 'hidden'
-                      }}>
+                      <div className="playlist-card-cover">
                         <img
                           alt="playlist thumbnail"
                           src={item.play_thumbnail}
-                          style={{ 
-                            height: '200px', 
-                            width: '100%',
-                            objectFit: 'cover',
-                            transition: 'transform 0.3s ease'
-                          }}
+                          className="playlist-card-img"
                           onError={(e) => {
                             e.target.src = `https://via.placeholder.com/300x200/${colors.cream.substring(1)}/${colors.brown.substring(1)}?text=🎵+No+Image`;
                           }}
@@ -594,11 +484,13 @@ const Playlist = () => {
                           left: '12px'
                         }}>
                           <Tag 
-                            color={colors.brown}
+                            className="text-brown"
                             style={{
                               borderRadius: '20px',
                               fontWeight: 'bold',
-                              border: 'none'
+                              border: 'none',
+                              background: 'var(--brown)',
+                              color: 'var(--cream)'
                             }}
                           >
                             {genreInfo.icon} {genreInfo.label}
@@ -615,7 +507,7 @@ const Playlist = () => {
                               shape="circle"
                               icon={<YoutubeOutlined />}
                               style={{ 
-                                background: colors.brown,
+                                background: 'var(--brown)',
                                 border: 'none'
                               }}
                               onClick={() => openInNewTab(item.play_url)}
@@ -627,7 +519,7 @@ const Playlist = () => {
                           bottom: 0,
                           left: 0,
                           right: 0,
-                          background: `linear-gradient(transparent, ${colors.brown}80)`,
+                          background: `linear-gradient(transparent, var(--brown)80)`,
                           height: '60px'
                         }} />
                       </div>
@@ -636,18 +528,12 @@ const Playlist = () => {
                       <Tooltip title="Edit playlist" key="edit">
                         <EditOutlined 
                           onClick={() => handleDrawerEdit(item)}
-                          style={{ 
-                            color: colors.brown,
-                            fontSize: '18px'
-                          }}
+                          className="playlist-card-actions"
                         />
                       </Tooltip>,
                       <Tooltip title="Share" key="share">
                         <ShareAltOutlined 
-                          style={{ 
-                            color: colors.brown,
-                            fontSize: '18px'
-                          }}
+                          className="playlist-card-actions"
                           onClick={() => {
                             navigator.clipboard.writeText(item.play_url);
                             showAlert("success", "Copied! 📋", "Link copied to clipboard");
@@ -662,44 +548,25 @@ const Playlist = () => {
                         okText="Yes, Delete"
                         cancelText="Cancel"
                         okButtonProps={{ 
-                          style: { 
-                            background: colors.brown, 
-                            borderColor: colors.brown 
-                          }
+                          className: "bg-brown"
                         }}
                       >
                         <Tooltip title="Delete playlist">
-                          <DeleteOutlined 
-                            style={{ 
-                              color: colors.brown,
-                              fontSize: '18px'
-                            }} 
-                          />
+                          <DeleteOutlined className="playlist-card-actions" />
                         </Tooltip>
                       </Popconfirm>
                     ]}
                   >
-                    <div style={{ padding: '8px 0' }}>
+                    <div style={{ padding: 'var(--space-sm) 0' }}>
                       <Title 
                         level={4} 
-                        style={{ 
-                          color: colors.brown,
-                          margin: '0 0 8px 0',
-                          fontSize: '18px',
-                          fontWeight: 'bold'
-                        }}
+                        className="playlist-card-title"
                         ellipsis={{ tooltip: item.play_name }}
                       >
                         {item.play_name}
                       </Title>
                       <Paragraph 
-                        style={{ 
-                          color: colors.brown,
-                          opacity: 0.7,
-                          margin: 0,
-                          fontSize: '14px',
-                          lineHeight: '1.4'
-                        }}
+                        className="playlist-card-description"
                         ellipsis={{ rows: 2, tooltip: item.play_description }}
                       >
                         {item.play_description || "No description"}

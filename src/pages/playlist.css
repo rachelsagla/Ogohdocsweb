@@ -1,0 +1,134 @@
+/* Playlist Container */
+.playlist-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/* Header Section */
+.playlist-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  padding: var(--space-xl);
+  background: linear-gradient(135deg, var(--cream) 0%, var(--light-brown) 100%);
+  border-radius: var(--border-radius-xl);
+  border: 1px solid var(--brown);
+}
+
+.playlist-title {
+  color: var(--brown);
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.playlist-subtitle {
+  color: var(--brown);
+  font-size: 1.1rem;
+  margin: var(--space-md) 0 var(--space-xl) 0;
+}
+
+/* Stats Card */
+.stats-card {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--light-brown) 100%);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-md);
+  border: 1px solid var(--brown);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+/* Filter Section */
+.filter-card {
+  margin-bottom: var(--space-lg);
+  border-radius: var(--border-radius-lg);
+  background: var(--cream);
+  border: 1px solid var(--brown);
+}
+
+.filter-tag {
+  cursor: pointer;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 20px;
+  border: 1px solid var(--brown);
+  font-weight: bold;
+}
+
+.filter-tag.active {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* Playlist Card */
+.playlist-card {
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  background: var(--cream);
+  border: 1px solid var(--brown);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.playlist-card-cover {
+  position: relative;
+  overflow: hidden;
+}
+
+.playlist-card-img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.playlist-card:hover .playlist-card-img {
+  transform: scale(1.05);
+}
+
+.playlist-card-actions {
+  color: var(--brown);
+  font-size: 18px;
+}
+
+.playlist-card-title {
+  color: var(--brown);
+  margin: 0 0 var(--space-sm) 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.playlist-card-description {
+  color: var(--brown);
+  opacity: 0.7;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Empty State */
+.empty-state {
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  padding: var(--space-xl);
+  background: var(--cream);
+  border: 1px solid var(--brown);
+}
+
+/* Drawer */
+.playlist-drawer .ant-drawer-header {
+  border-bottom: 2px solid var(--brown);
+  background: var(--cream);
+}
+
+.playlist-drawer .ant-drawer-body {
+  background: var(--cream);
+  padding: var(--space-lg);
+}
+
+.playlist-form-item .ant-input, 
+.playlist-form-item .ant-select-selector, 
+.playlist-form-item .ant-input-affix-wrapper {
+  border-radius: var(--border-radius-md);
+  background: var(--cream);
+  border: 1px solid var(--brown);
+}

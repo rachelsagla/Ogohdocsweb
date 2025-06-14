@@ -1,0 +1,150 @@
+/* Main Layout Styles */
+.main-layout {
+  min-height: 100vh;
+  background: var(--cream);
+}
+
+/* Header Styles */
+.main-header {
+  background: var(--brown);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Logo Styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  cursor: pointer; /* Menunjukkan elemen bisa diinteraksi */
+}
+
+.logo-image {
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease; /* Animasi perubahan ukuran */
+}
+
+.logo-container:hover .logo-image {
+  transform: scale(1.05); /* Membesar 5% saat hover */
+}
+
+.site-title {
+  color: var(--cream);
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  transition: transform 0.3s ease; /* Tambahkan jika ingin teks juga membesar */
+}
+
+/* Menu Styles - Efek hover hanya untuk navigasi */
+.main-menu {
+  background: transparent;
+  border-bottom: none;
+  margin-left: auto;
+  line-height: 64px;
+}
+
+.main-menu.ant-menu-dark {
+  background: transparent;
+}
+
+.main-menu .ant-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  margin: 0 4px !important;
+  height: 40px;
+  border-radius: 20px !important;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.main-menu .ant-menu-item a {
+  color: var(--cream) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.main-menu .ant-menu-item:hover {
+  background-color: var(--cream) !important;
+  transform: translateY(-2px);
+}
+
+.main-menu .ant-menu-item:hover a,
+.main-menu .ant-menu-item:hover .anticon {
+  color: var(--brown) !important;
+}
+
+.main-menu .ant-menu-item-selected {
+  background-color: var(--cream) !important;
+}
+
+.main-menu .ant-menu-item-selected a,
+.main-menu .ant-menu-item-selected .anticon {
+  color: var(--brown) !important;
+  font-weight: 600;
+}
+
+.main-menu .anticon {
+  font-size: 1rem;
+  margin-right: 8px;
+  transition: all 0.3s ease;
+  color: var(--cream);
+}
+
+.main-menu .ant-menu-item:hover .anticon {
+  transform: scale(1.1);
+}
+
+/* Content Styles */
+.main-content {
+  padding: 24px;
+  min-height: calc(100vh - 128px);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Footer Styles */
+.main-footer {
+  text-align: center;
+  background: var(--brown);
+  color: var(--cream);
+  padding: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    height: auto;
+    padding: 16px;
+  }
+  
+  .logo-container {
+    margin-bottom: 16px;
+  }
+  
+  .main-menu {
+    margin-left: 0;
+    width: 100%;
+    line-height: normal;
+  }
+  
+  .main-menu .ant-menu-item {
+    width: 100%;
+    justify-content: center;
+  }
+}
