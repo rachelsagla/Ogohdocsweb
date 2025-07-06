@@ -29,7 +29,8 @@ import {
   HeartOutlined,
   ShareAltOutlined,
   SoundOutlined,
-  PictureOutlined
+  PictureOutlined,
+  PushpinOutlined
 } from '@ant-design/icons';
 import { getData, sendData, deleteData } from "/src/utils/api";
 import "./theme.css";
@@ -40,6 +41,7 @@ const { Option } = Select;
 
 const Playlist = () => {
   // State management
+  
   const [dataSources, setDataSources] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -49,6 +51,11 @@ const Playlist = () => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [pinnedIds, setPinnedIds] = useState(() => {
+  const saved = localStorage.getItem('pinnedPlaylists');
+  return saved ? JSON.parse(saved) : [];
+});
+
 
   // Constants
   const genreOptions = [
@@ -199,6 +206,15 @@ const Playlist = () => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
+  const togglePin = (id) => {
+  const updated = pinnedIds.includes(id)
+    ? pinnedIds.filter(pid => pid !== id)
+    : [...pinnedIds, id];
+
+  setPinnedIds(updated);
+  localStorage.setItem('pinnedPlaylists', JSON.stringify(updated));
+};
+
   // Component rendering
   const renderStatsCard = () => {
     const totalPlaylists = dataSources.length;
@@ -223,6 +239,37 @@ const Playlist = () => {
       </Card>
     );
   };
+
+   const renderPinnedPlaylists = () => {
+  const pinnedItems = dataSources.filter(item => pinnedIds.includes(item.id_play));
+
+  if (pinnedItems.length === 0) return null;
+
+  return (
+    <Card className="pinned-playlists-card" style={{ marginBottom: 'var(--space-lg)', backgroundColor: '#F8E0B2' }}>
+      <Title level={3} className="text-brown">📌 Pinned Playlists</Title>
+      <Row gutter={[24, 24]}>
+        {pinnedItems.map(item => {
+          const genreInfo = getGenreInfo(item.play_genre);
+          return (
+            <Col xs={24} sm={12} md={8} lg={6} key={item.id_play}>
+              <Card
+                hoverable
+                className="playlist-card"
+                cover={<img src={item.play_thumbnail} alt={item.play_name} />}
+              >
+                <Title level={4} ellipsis className="text-brown">
+                  {item.play_name}
+                </Title>
+                <Text>{genreInfo.label}</Text><br />
+              </Card>
+            </Col>
+          );
+        })}
+      </Row>
+    </Card>
+  );
+};
 
   const renderDrawer = () => (
     <Drawer
@@ -363,6 +410,8 @@ const Playlist = () => {
             Manage and enjoy your favorite content in one place
           </Paragraph>
         </div>
+
+        {renderPinnedPlaylists()}
 
         {/* Stats Card */}
         {renderStatsCard()}
@@ -513,6 +562,7 @@ const Playlist = () => {
                               onClick={() => openInNewTab(item.play_url)}
                             />
                           </Tooltip>
+                        
                         </div>
                         <div style={{
                           position: 'absolute',
@@ -557,6 +607,15 @@ const Playlist = () => {
                       </Popconfirm>
                     ]}
                   >
+                  <Tooltip title={pinnedIds.includes(item.id_play) ? "Unpin" : "Pin"}>
+                      <PushpinOutlined
+                        rotate={pinnedIds.includes(item.id_play) ? 0 : 45}
+                        onClick={() => togglePin(item.id_play)}
+                        style={{  fontSize: '20px', // ✅ Perbesar ikon
+    color: pinnedIds.includes(item.id_play) ? 'var(--brown)' : '#999' }}
+                      />
+                    </Tooltip>
+
                     <div style={{ padding: 'var(--space-sm) 0' }}>
                       <Title 
                         level={4} 

@@ -114,6 +114,14 @@
   border: 1px solid var(--brown);
 }
 
+.pinned-playlists-card {
+  background-color: #F8E0B2 !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 12px; /* sesuaikan dengan style global */
+  padding: 24px; /* agar konten di dalamnya punya ruang */
+}
+
 /* Drawer */
 .playlist-drawer .ant-drawer-header {
   border-bottom: 2px solid var(--brown);
@@ -124,6 +132,7 @@
   background: var(--cream);
   padding: var(--space-lg);
 }
+
 
 .playlist-form-item .ant-input, 
 .playlist-form-item .ant-select-selector, 
