@@ -13,27 +13,35 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      // Replace with your actual API endpoint
-      const response = await axios.post('https://api.anda.com/auth/login', {
-        username: values.username,
-        password: values.password
+      const formData = new FormData();
+      formData.append('email', values.email);
+      formData.append('password', values.password);
+
+      const response = await axios.post('http://localhost:5000/login', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
 
       // Handle successful login
       message.success('Login berhasil!');
       
-      // Save token to localStorage or context
-      localStorage.setItem('token', response.data.token);
+      // Save tokens and user data
+      localStorage.setItem('access_token', response.data.access_token);
+      localStorage.setItem('refresh_token', response.data.refresh_token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       
       // Redirect to dashboard
       navigate('/dashboard');
       
     } catch (error) {
       console.error('Login error:', error);
-      message.error(
-        error.response?.data?.message || 
-        'Login gagal. Periksa kembali username dan password Anda'
-      );
+      const errorMessage = error.response?.data?.message;
+      if (errorMessage) {
+        message.error(Array.isArray(errorMessage) ? errorMessage.join(', ') : errorMessage);
+      } else {
+        message.error('Login gagal. Periksa kembali email dan password Anda');
+      }
     } finally {
       setLoading(false);
     }
@@ -56,7 +64,7 @@ const LoginPage = () => {
               className="auth-form"
             >
               <Form.Item
-                label="email"
+                label="Email"
                 name="email"
                 rules={[
                   { required: true, message: 'Silakan masukkan email Anda!' },
@@ -102,7 +110,6 @@ const LoginPage = () => {
                   size="large"
                   className="submit-btn"
                   loading={loading}
-                  disabled={loading}
                 >
                   Masuk
                 </Button>

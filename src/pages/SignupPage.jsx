@@ -13,21 +13,27 @@ const SignupPage = () => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const payload = {
-        ...values,
-        role: 'regular' // atau hilangkan jika backend tidak membutuhkan role
-      };
+      const formData = new FormData();
+      formData.append('name', values.name);
+      formData.append('email', values.email);
+      formData.append('password', values.password);
 
-      const response = await axios.post('https://api.anda.com/auth/register', payload);
+      const response = await axios.post('http://localhost:5000/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
 
       message.success('Pendaftaran berhasil!');
       navigate('/login');
     } catch (error) {
       console.error('Error:', error);
-      message.error(
-        error.response?.data?.message || 
-        'Gagal mendaftar. Silakan coba lagi atau hubungi admin'
-      );
+      const errorMessage = error.response?.data?.message;
+      if (errorMessage) {
+        message.error(Array.isArray(errorMessage) ? errorMessage.join(', ') : errorMessage);
+      } else {
+        message.error('Gagal mendaftar. Silakan coba lagi atau hubungi admin');
+      }
     } finally {
       setLoading(false);
     }
@@ -51,6 +57,16 @@ const SignupPage = () => {
               scrollToFirstError
             >
               <Form.Item
+                label="Nama Lengkap"
+                name="name"
+                rules={[
+                  { required: true, message: 'Silakan masukkan nama lengkap!' },
+                ]}
+              >
+                <Input size="large" placeholder="Nama lengkap Anda" />
+              </Form.Item>
+
+              <Form.Item
                 label="Email"
                 name="email"
                 rules={[
@@ -59,17 +75,6 @@ const SignupPage = () => {
                 ]}
               >
                 <Input size="large" placeholder="nama@institusi.com" />
-              </Form.Item>
-
-              <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                  { required: true, message: 'Silakan buat username!' },
-                  { min: 3, message: 'Minimal 3 karakter!' }
-                ]}
-              >
-                <Input size="large" placeholder="Buat username Anda" />
               </Form.Item>
 
               <Form.Item
@@ -127,7 +132,6 @@ const SignupPage = () => {
                   size="large"
                   className="submit-btn"
                   loading={loading}
-                  disabled={loading}
                 >
                   Daftar
                 </Button>
