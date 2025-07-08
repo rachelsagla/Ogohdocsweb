@@ -3,6 +3,8 @@ import MainLayout from './layout/mainlayout.jsx';
 import Dashboard from './pages/dashboard.jsx';
 import Playlist from './pages/playlist.jsx';
 import Profile from './pages/profile.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="playlist" element={<Playlist />} />
         <Route path="profile" element={<Profile />} />
       </Route>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
     </Routes>
   );
 }

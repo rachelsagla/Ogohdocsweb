@@ -23,17 +23,17 @@
   align-items: center;
   gap: 12px;
   height: 100%;
-  cursor: pointer; /* Menunjukkan elemen bisa diinteraksi */
+  cursor: pointer;
 }
 
 .logo-image {
   object-fit: contain;
   display: block;
-  transition: transform 0.3s ease; /* Animasi perubahan ukuran */
+  transition: transform 0.3s ease;
 }
 
 .logo-container:hover .logo-image {
-  transform: scale(1.05); /* Membesar 5% saat hover */
+  transform: scale(1.05);
 }
 
 .site-title {
@@ -42,15 +42,15 @@
   font-weight: 600;
   font-size: 1.25rem;
   letter-spacing: 0.5px;
-  transition: transform 0.3s ease; /* Tambahkan jika ingin teks juga membesar */
 }
 
-/* Menu Styles - Efek hover hanya untuk navigasi */
+/* Menu Styles */
 .main-menu {
   background: transparent;
   border-bottom: none;
-  margin-left: auto;
   line-height: 64px;
+  display: flex;
+  margin-left: auto;
 }
 
 .main-menu.ant-menu-dark {
@@ -60,11 +60,11 @@
 .main-menu .ant-menu-item {
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 12px !important;
   margin: 0 4px !important;
   height: 40px;
   border-radius: 20px !important;
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s ease;
 }
 
 .main-menu .ant-menu-item a {
@@ -75,16 +75,7 @@
   align-items: center;
 }
 
-.main-menu .ant-menu-item:hover {
-  background-color: var(--cream) !important;
-  transform: translateY(-2px);
-}
-
-.main-menu .ant-menu-item:hover a,
-.main-menu .ant-menu-item:hover .anticon {
-  color: var(--brown) !important;
-}
-
+/* Selected Menu Item */
 .main-menu .ant-menu-item-selected {
   background-color: var(--cream) !important;
 }
@@ -92,18 +83,51 @@
 .main-menu .ant-menu-item-selected a,
 .main-menu .ant-menu-item-selected .anticon {
   color: var(--brown) !important;
-  font-weight: 600;
 }
 
-.main-menu .anticon {
-  font-size: 1rem;
-  margin-right: 8px;
-  transition: all 0.3s ease;
-  color: var(--cream);
+/* Hover State */
+.main-menu .ant-menu-item:hover:not(.ant-menu-item-selected) {
+  background-color: rgba(248, 224, 178, 0.3) !important;
 }
 
+.main-menu .ant-menu-item:hover a,
 .main-menu .ant-menu-item:hover .anticon {
-  transform: scale(1.1);
+  color: var(--cream) !important;
+}
+
+/* Auth Buttons Styles */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 0;
+  padding-left: 12px;
+}
+
+/* Ganti bagian ini di mainlayout.css */
+.login-btn {
+  color: var(--cream) !important;
+  border: 1px solid var(--cream) !important;
+  background: transparent !important;
+  height: 40px;
+  border-radius: 20px !important;
+  padding: 0 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  color: var(--brown) !important;
+  background: var(--cream) !important;
+}
+
+.login-btn:focus {
+  box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2) !important;
+}
+
+/* Pastikan icon juga ikut warnanya */
+.login-btn .anticon {
+  color: inherit !important;
 }
 
 /* Content Styles */
@@ -138,12 +162,19 @@
   }
   
   .main-menu {
-    margin-left: 0;
+    flex-direction: column;
     width: 100%;
     line-height: normal;
   }
   
   .main-menu .ant-menu-item {
+    width: 100%;
+    justify-content: center;
+    margin: 4px 0 !important;
+  }
+  
+  .auth-buttons {
+    margin-top: 16px;
     width: 100%;
     justify-content: center;
   }

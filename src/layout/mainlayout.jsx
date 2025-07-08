@@ -1,10 +1,12 @@
 import React from 'react';
-import { Layout, Menu, Image, Typography } from 'antd';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Layout, Menu, Image, Typography, Button, Space } from 'antd';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   HomeOutlined,
   PlayCircleOutlined,
   UserOutlined,
+  LoginOutlined,
+  UserAddOutlined
 } from '@ant-design/icons';
 import './mainlayout.css';
 
@@ -13,6 +15,7 @@ const { Text } = Typography;
 
 const MainLayout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <Layout className="main-layout">
@@ -45,6 +48,18 @@ const MainLayout = () => {
             <Link to="/profile">Profile</Link>
           </Menu.Item>
         </Menu>
+
+        {/* Tambahkan tombol Login dan Signup di sini */}
+        <Space className="auth-buttons">
+          <Button 
+            type="default" 
+            icon={<LoginOutlined />}
+            onClick={() => navigate('/login')}
+            className="login-btn"
+          >
+            Masuk
+          </Button>
+        </Space>
       </Header>
 
       <Content className="main-content">

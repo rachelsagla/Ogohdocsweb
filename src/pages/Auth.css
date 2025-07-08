@@ -1,0 +1,168 @@
+/* Auth Page Styles */
+.auth-page {
+  background-color: var(--cream);
+  min-height: 100vh;
+  padding: 1rem; /* Original padding value */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family);
+}
+
+/* Container sizing remains exactly as original */
+.auth-container {
+  background: white;
+  padding: 40px 32px; /* Original padding */
+  border-radius: 12px; /* Original radius */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Original shadow */
+  width: 80%; /* Original width */
+  max-width: none; /* Original max-width */
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* Theme-compliant styles below */
+.auth-title {
+  text-align: center;
+  color: var(--brown);
+  margin-bottom: 8px !important;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.auth-subtitle {
+  display: block;
+  text-align: center;
+  color: #666;
+  margin-bottom: 24px !important;
+  font-size: 1rem;
+}
+
+/* Form Styles */
+.auth-form {
+  width: 100%;
+}
+
+.auth-form .ant-form-item-label {
+  padding-bottom: var(--space-sm);
+}
+
+.auth-form .ant-form-item-label > label {
+  color: #333;
+  font-weight: 500;
+  font-size: var(--font-size-base);
+}
+
+.auth-form .ant-input,
+.auth-form .ant-input-password {
+  padding: var(--space-md);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+}
+
+/* Account Type Selection */
+/* Account Type Selection Styles */
+.account-type-group {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.account-radio {
+  flex: 1;
+  display: flex;
+}
+
+.account-radio .ant-radio {
+  display: none;
+}
+
+.account-card {
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  min-height: 120px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-card .ant-typography {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-card.active {
+  border-color: #8B4513 !important;
+  box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+}
+
+.account-radio[value="admin"] .account-card {
+  background-color: rgba(139, 69, 19, 0.1);
+  border-color: rgba(139, 69, 19, 0.3) !important;
+}
+
+.account-radio[value="regular"] .account-card {
+  background-color: rgba(139, 69, 19, 0.05);
+  border-color: rgba(139, 69, 19, 0.2) !important;
+}
+
+.account-type-title {
+  margin-bottom: 8px !important;
+  color: #8B4513;
+}
+
+/* Admin Notice */
+.admin-notice {
+  margin-bottom: var(--space-md);
+}
+
+/* Submit Button */
+.submit-btn {
+  background: var(--brown) !important;
+  border: none !important;
+  height: 42px; /* Original height */
+  font-weight: 500;
+  font-size: var(--font-size-base);
+}
+
+.submit-btn:hover {
+  background: #6d3610 !important;
+}
+
+/* Auth Footer */
+.auth-footer {
+  text-align: center;
+  margin-top: 16px; /* Original margin */
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.auth-footer a {
+  color: var(--brown) !important;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 24px 16px; /* Original padding */
+    max-width: 90%; /* Original max-width */
+  }
+  
+  .account-type-group {
+    flex-direction: column;
+  }
+  
+  .auth-title {
+    font-size: 1.5rem;
+  }
+}
