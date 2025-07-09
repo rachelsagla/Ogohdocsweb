@@ -5,6 +5,7 @@ import Playlist from './pages/playlist.jsx';
 import Profile from './pages/profile.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
+import PostDetail from './pages/postdetail.jsx';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="playlist" element={<Playlist />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="/postdetail/:postId" element={<PostDetail />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
