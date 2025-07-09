@@ -14,22 +14,30 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const formData = new FormData();
-      formData.append('email', values.email);
-      formData.append('password', values.password);
+          formData.append('email', values.email);
+          formData.append('password', values.password);
 
-      const response = await axios.post('http://localhost:5000/login', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+          const response = await axios.post('http://localhost:5000/login', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+
+
 
       // Handle successful login
       message.success('Login berhasil!');
       
       // Save tokens and user data
-      localStorage.setItem('access_token', response.data.access_token);
-      localStorage.setItem('refresh_token', response.data.refresh_token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      const { access_token, refresh_token, user } = response.data.data;
+
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      console.log('access_token:', access_token);
+      console.log('saved to localStorage:', localStorage.getItem('access_token'));
+
       
       // Redirect to dashboard
       navigate('/dashboard');

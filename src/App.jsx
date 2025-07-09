@@ -10,7 +10,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
-        <Route index element={<Playlist />} />
+        <Route index element={<LoginPage/>} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="playlist" element={<Playlist />} />
         <Route path="profile" element={<Profile />} />
