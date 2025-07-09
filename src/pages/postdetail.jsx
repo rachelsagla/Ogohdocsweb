@@ -365,10 +365,15 @@ const PostDetail = () => {
         Back
       </Button> */}
 
-      <Card
-        style={{ borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}
-        bodyStyle={{ padding: '24px' }}
-      >
+<Card
+  style={{ 
+    borderRadius: '12px',
+    boxShadow: '0 5px 10px rgba(0,0,0,0.1)',
+    backgroundColor: '#F8E0B2',
+    border: '1px solid #8B4513'
+  }}
+  bodyStyle={{ padding: '24px' }}
+>
         {/* Author Info */}
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
           <Avatar 

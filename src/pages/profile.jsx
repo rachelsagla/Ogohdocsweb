@@ -1117,7 +1117,9 @@ const Profile = () => {
                       border: '1px solid var(--brown)',
                       height: '100%',
                       display: 'flex',
-                      flexDirection: 'column'
+                      flexDirection: 'column',
+                      backgroundColor: '#F8E0B2'
+              
                     }}
                     bodyStyle={{ padding: 16, flex: 1, display: 'flex', flexDirection: 'column' }}
                     cover={
@@ -1248,15 +1250,15 @@ const Profile = () => {
             </Form.Item>
 
             <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                { required: true, message: 'Please enter your email' },
-                { type: 'email', message: 'Please enter a valid email' }
-              ]}
-            >
-              <Input prefix={<MailOutlined />} />
-            </Form.Item>
+  label="Email"
+  name="email"
+  rules={[
+    { required: true, message: 'Please enter your email' },
+    { type: 'email', message: 'Please enter a valid email' }
+  ]}
+>
+  <Input prefix={<MailOutlined />} disabled />
+</Form.Item>
 
             <Form.Item>
               <Space>

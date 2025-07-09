@@ -45,7 +45,7 @@
 
 .hero-title {
   font-size: 2.5rem;
-  color: var(--cream);
+  color: var(--cream)!important;
   margin-bottom: var(--space-md);
 }
 
@@ -132,7 +132,7 @@
 }
 
 .stat-card {
-  background-color: var(--light-brown);
+  background-color: var(--cream);
   border-radius: var(--border-radius-lg);
   padding: var(--space-lg);
   text-align: center;
@@ -153,6 +153,7 @@
 
 /* Post Cards */
 .posts-grid {
+  background-color: var(--cream);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: var(--space-xl);
@@ -160,7 +161,7 @@
 }
 
 .post-card {
-  background-color: var(--light-brown);
+  background-color: var(--cream);
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--brown);
   overflow: hidden;
@@ -349,7 +350,7 @@
 }
 
 .empty-post-card .ant-empty-description {
-  color: var(--brown);
+  color: var(--cream);
   font-size: 1.1rem;
 }
 
@@ -490,28 +491,40 @@
 
 /* Hero Section */
 .dashboard-hero {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  border-radius: 12px;
-  padding: 40px 20px;
-  margin-bottom: 30px;
+  background-color: var(--brown);
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--border-radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  color: var(--cream);
   text-align: center;
+  border: 1px solid var(--brown);
 }
+
 
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-title {
-  color: #2c3e50;
-  margin-bottom: 16px !important;
+  font-size: 2.5rem;
+  color: var(--cream);
+  margin-bottom: var(--space-md);
 }
 
 .hero-subtitle {
-  font-size: 18px;
-  color: #4a5568;
+  font-size: 1.2rem;
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xl);
+  display: block;
+  color: var(--cream);
   max-width: 600px;
-  margin: 0 auto 24px;
+  text-align: center;
 }
 
 .hero-button {

@@ -41,9 +41,9 @@ const MainLayout = () => {
           <Menu.Item key="/dashboard" icon={<HomeOutlined />}>
             <Link to="/dashboard">Beranda</Link>
           </Menu.Item>
-          <Menu.Item key="/playlist" icon={<PlayCircleOutlined />}>
+          {/* <Menu.Item key="/playlist" icon={<PlayCircleOutlined />}>
             <Link to="/playlist">Playlist</Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="/profile" icon={<UserOutlined />}>
             <Link to="/profile">Profile</Link>
           </Menu.Item>
